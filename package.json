@@ -1,0 +1,30 @@
+{
+  "name": "discord-clone",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:infra\" \"pnpm dev:frontend\"",
+    "dev:infra": "sst dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:services": "docker-compose up -d",
+    "build": "pnpm --filter core build && pnpm --filter functions build && pnpm --filter frontend build",
+    "test": "pnpm --filter core test && pnpm --filter frontend test",
+    "test:e2e": "pnpm --filter frontend test:e2e",
+    "typecheck": "pnpm -r typecheck",
+    "deploy": "sst deploy --stage prod",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "concurrently": "^8.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "sst": "^3.17.25",
+    "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md,html,yaml,yml}": "prettier --write"
+  }
+}
